@@ -25,9 +25,14 @@ namespace AIS_APP.Services
             };
         }
 
-        / // Ver os retornos da API do Marcorácio
+        // Ver os retornos da API do Marcorácio
 
         #region GET Methods
+
+        public async Task<(bool IdNumberOnFlight, string? ErrorMessage)> CheckIdNumberOnFlight(string idNum, int flightId)
+        {
+            return await GetAsync<bool>($"Api/Tickets/CheckIdentificationNumberOnFlight?idNum={idNum}&flightId={flightId}");
+        }
 
         public async Task<(List<FlightModel>? AvailableFlights, string? ErrorMessage)> GetAvailableFlights()
         {
@@ -44,9 +49,9 @@ namespace AIS_APP.Services
             return await GetAsync<List<TicketRecord>>("Api/Flights/GetUserScheduledFlights");
         }
 
-        public async Task<(FlightModel? FlightById, string? ErrorMessage)> GetFlightById(int flightId)
+        public async Task<(FlightModel? FlightById, string? ErrorMessage)> GetFlightById(int id)
         {
-            string endpoint = $"Api/Flights/GetFlightById/{flightId}";
+            string endpoint = $"Api/Flights/GetFlightById?id={id}";
 
             return await GetAsync<FlightModel>(endpoint);
         }
@@ -101,7 +106,7 @@ namespace AIS_APP.Services
             try
             {
                 var content = new MultipartFormDataContent();
-                content.Add(new ByteArrayContent(imageArray), "image", "image.jpg");
+                content.Add(new ByteArrayContent(imageArray), "imageFile", "image.jpg");
                 var response = await PostRequest("Api/Users/UploadUserImage", content);
 
                 if (!response.IsSuccessStatusCode)
@@ -172,7 +177,7 @@ namespace AIS_APP.Services
                 var result = JsonSerializer.Deserialize<Token>(jsonResult, _serializerOptions);
 
                 Preferences.Set("accesstoken", result!.AccessToken);
-                Preferences.Set("userid", (int)result.UserId!);
+                Preferences.Set("userid", result.UserId!);
                 Preferences.Set("email", result.UserEmail);
 
                 return new ApiResponse<bool> { Data = true };
@@ -270,7 +275,7 @@ namespace AIS_APP.Services
 
         #region PUT Methods
 
-        public async Task<(bool Data, string? ErrorMessage)> UpdateUser(UpdateUserModel model)
+        public async Task<ApiResponse<bool>> UpdateUser(UpdateUserModel model)
         {
             try
             {
@@ -279,34 +284,21 @@ namespace AIS_APP.Services
 
                 var response = await PutRequest("Api/Users/UpdateUser", content);
 
-                if (response.IsSuccessStatusCode)
+                if (!response.IsSuccessStatusCode)
                 {
-                    return (true, null);
+                    string errorMessage = response.StatusCode == HttpStatusCode.Unauthorized
+                        ? "Unauthorized"
+                        : $"Error in HTTP request: {response.StatusCode}";
+
+                    _logger.LogError($"Error in HTTP request: {response.StatusCode}");
+                    return new ApiResponse<bool> { ErrorMessage = errorMessage };
                 }
-                else
-                {
-                    if (response.StatusCode == HttpStatusCode.Unauthorized)
-                    {
-                        string errorMessage = "Unauthorized";
-                        _logger.LogWarning(errorMessage);
-                        return (false, errorMessage);
-                    }
-                    string generalErrorMessage = $"Request error: {response.ReasonPhrase}";
-                    _logger.LogError(generalErrorMessage);
-                    return (false, generalErrorMessage);
-                }
-            }
-            catch (HttpRequestException ex)
-            {
-                string errorMessage = $"HTTP request error: {ex.Message}";
-                _logger.LogError(ex, errorMessage);
-                return (false, errorMessage);
+                return new ApiResponse<bool> { Data = true };
             }
             catch (Exception ex)
             {
-                string errorMessage = $"Unexpected error: {ex.Message}";
-                _logger.LogError(ex, errorMessage);
-                return (false, errorMessage);
+                _logger.LogError($"Error in user update: {ex.Message}");
+                return new ApiResponse<bool> { ErrorMessage = ex.Message };
             }
         }
 
@@ -376,6 +368,7 @@ namespace AIS_APP.Services
             var url = _baseUrl + uri;
             try
             {
+                AddAuthorizationHeader();
                 var result = await _httpClient.PostAsync(url, content);
                 return result;
             }

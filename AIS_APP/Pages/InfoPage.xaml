@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="AIS_APP.Pages.InfoPage"
+             Title="About AIS"
+             BackgroundColor="AliceBlue">
+
+    <ScrollView>
+        <VerticalStackLayout Padding="20">
+            <Image
+               Source="ais.png"
+               Aspect="AspectFit"
+               HeightRequest="150"
+               WidthRequest="150"
+               Margin="0,0,0,20"/>
+
+            <Label Text="      AIS was developed as part of a Technical Specialization in Technology and Information Systems Programming"
+                   FontSize="17" 
+                   TextColor="Black" Margin="20,0,20,60"/>
+
+            <Frame Padding="16,11,14,13" BackgroundColor="DodgerBlue" CornerRadius="10" HorizontalOptions="Center" HasShadow="True">
+
+                <VerticalStackLayout HorizontalOptions="Center">
+                    <HorizontalStackLayout Margin="0,0,0,11" HorizontalOptions="Center">
+                        <Label Text="Developed by "
+                   FontSize="20" 
+                   TextColor="WhiteSmoke"/>
+                        <Label Text="Mauro Cunha" FontAttributes="Bold" 
+                   FontSize="20" 
+                   TextColor="White"/>
+                    </HorizontalStackLayout>
+                    <HorizontalStackLayout Margin="0,0,0,11" HorizontalOptions="Center">
+
+                        <Label Text="Version "
+                   FontSize="16" 
+                   TextColor="White"/>
+                        <Label Text="1.0.0" 
+                   FontSize="16" 
+                   TextColor="White" FontAttributes="Bold"/>
+                    </HorizontalStackLayout>
+                    <HorizontalStackLayout HorizontalOptions="Center">
+
+                        <Label Text="2024" FontAttributes="Bold"
+                   FontSize="16" 
+                   TextColor="White"/>
+                        
+                    </HorizontalStackLayout>
+                </VerticalStackLayout>
+
+            </Frame>
+
+            <Label Text="Thank you for being a part of AIS!"
+                   FontSize="19"
+                   TextColor="DodgerBlue"
+                   HorizontalOptions="Center"
+                   Margin="0,100,0,0"/>
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>

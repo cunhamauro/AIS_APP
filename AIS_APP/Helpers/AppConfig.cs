@@ -1,16 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace AIS_APP.Helpers
+﻿namespace AIS_APP.Helpers
 {
     public class AppConfig
     {
-        public static readonly string Url = "";
+        public static readonly string Url = "https://h2x7hb6m-7154.uks1.devtunnels.ms/";
 
-        public static readonly string DefaultProfileImage = "Resources/Images/profile.png"; / // Meter profile image
+        public static readonly string DefaultProfileImage = "Resources/Images/defaultprofile.png"; // Meter profile image
     }
 }
- 

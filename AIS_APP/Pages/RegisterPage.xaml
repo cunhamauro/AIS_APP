@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="AIS_APP.Pages.RegisterPage"
+             Title="Register"
+             BackgroundColor="AliceBlue">
+
+    <!-- AbsoluteLayout allows layering of elements -->
+    <AbsoluteLayout>
+
+        <!-- Main content grid -->
+        <Grid RowDefinitions="Auto,Auto,Auto,Auto,*"
+              RowSpacing="20"
+              Margin="20,20,20,40"
+              AbsoluteLayout.LayoutBounds="0, 0, 1, 1"
+              AbsoluteLayout.LayoutFlags="All">
+
+            <Image Grid.Row="0"
+                   Source="ais.png"
+                   Aspect="AspectFit"
+                   HeightRequest="100"
+                   WidthRequest="100"
+                   Margin="0,0,0,20"/>
+
+            <Label Grid.Row="1"
+                   Text="Register"
+                   FontAttributes="Bold"
+                   HorizontalOptions="Center" FontSize="18"/>
+
+            <Frame Grid.Row="2"
+                   Padding="15"
+                   BackgroundColor="White" HasShadow="True">
+                <VerticalStackLayout>
+
+                    <Entry Placeholder="First Name" FontSize="16"
+                           x:Name="EntFirstName"/>
+
+                    <Entry Placeholder="Last Name" FontSize="16"
+                           x:Name="EntLastName"/>
+
+                    <Entry Placeholder="Email" FontSize="16"
+                           Keyboard="Email"
+                           x:Name="EntEmail"/>
+
+                    <Entry Placeholder="Phone Number" FontSize="16"
+                           Keyboard="Telephone"
+                           x:Name="EntPhone"/>
+
+                    <Entry Placeholder="Password" FontSize="16"
+                           IsPassword="True"
+                           x:Name="EntPassword"/>
+
+                    <Entry Placeholder="Confirm Password" FontSize="16"
+                           IsPassword="True"
+                           x:Name="EntConfirmPassword"/>
+                </VerticalStackLayout>
+            </Frame>
+
+            <Button Grid.Row="3"
+                    Text="Register"
+                    FontSize="20"                
+                    BackgroundColor="DodgerBlue"
+                    x:Name="BtnRegister"
+                    Clicked="BtnRegister_Clicked"/>
+
+            <HorizontalStackLayout Grid.Row="4"
+                                   Spacing="2" HorizontalOptions="Center"
+                                   VerticalOptions="EndAndExpand">
+
+                <Label Text="Already have an account?"/>
+                <Label Text="Login here" TextColor="DodgerBlue" FontAttributes="Bold">
+                    <Label.GestureRecognizers>
+                        <TapGestureRecognizer x:Name="TapLogin" Tapped="TapLogin_Tapped"/>
+                    </Label.GestureRecognizers>
+                </Label>
+            </HorizontalStackLayout>
+
+        </Grid>
+
+        <!-- Centered Activity Indicator, overlaying the entire page -->
+        <ActivityIndicator IsRunning="False"
+                           x:Name="LoadingSpinner"
+                           Color="DodgerBlue"
+                           WidthRequest="90"
+                           HeightRequest="90"
+                           Opacity="0.5"
+                           HorizontalOptions="Center"
+                           VerticalOptions="Center"
+                           AbsoluteLayout.LayoutBounds="0.5, 0.5, -1, -1"
+                           AbsoluteLayout.LayoutFlags="PositionProportional"/>
+        <!-- Set IsVisible="True" to show the spinner -->
+
+    </AbsoluteLayout>
+
+</ContentPage>

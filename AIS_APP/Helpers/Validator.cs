@@ -20,19 +20,20 @@ namespace AIS_APP.Helpers
         private const string InvalidPhoneNumberErrorMsg = "Please enter a valid phone number";
         private const string EmptyPasswordErrorMsg = "Please enter your password";
         private const string InvalidPasswordErrorMsg = "The password must be alphanumeric with a minimum length of 8 characters";
+        private const string ConfirmPasswordErrorMsg = "The passwords are not a match";
 
-        public Task<bool> Validate(string firstName, string lastName, string email, string phonenumber, string password)
+        public Task<bool> Validate(string firstName, string lastName, string email, string phonenumber, string password, string confirmPassword)
         {
             var isFirstNameValid = ValidateFirstName(firstName);
             var isLastNameValid = ValidateLastName(lastName);
             var isEmailValid = ValidateEmail(email);
             var isPhoneNumberValid = ValidatePhoneNumber(phonenumber);
-            var isPasswordValid = ValidatePassword(password);
+            var isPasswordValid = ValidatePassword(password, confirmPassword);
 
             return Task.FromResult(isFirstNameValid && isLastNameValid && isEmailValid && isPhoneNumberValid && isPasswordValid);
         }
 
-        private bool ValidatePassword(string password)
+        private bool ValidatePassword(string password, string confirmPassword)
         {
             if (string.IsNullOrEmpty(password))
             {
@@ -43,6 +44,12 @@ namespace AIS_APP.Helpers
             if (password.Length < 8 || !Regex.IsMatch(password, @"[a-zA-Z]") || !Regex.IsMatch(password, @"\d"))
             {
                 PasswordError = InvalidPasswordErrorMsg;
+                return false;
+            }
+
+            if (password != confirmPassword)
+            {
+                PasswordError = ConfirmPasswordErrorMsg;
                 return false;
             }
 

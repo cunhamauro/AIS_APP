@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="AIS_APP.Pages.ScheduledFlightsPage"
+             Title="Scheduled Flights"
+             xmlns:models="clr-namespace:AIS_APP.Models"
+            xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+            xmlns:sys="clr-namespace:System;assembly=netstandard"
+             BackgroundColor="AliceBlue">
+
+    <Grid Padding="20,20,20,0">
+        <!-- CollectionView to display flights -->
+        <Label IsVisible="False" x:Name="NoItems" Text="You have no flight history" TextColor="Gray" FontSize="20" HorizontalTextAlignment="Center" Margin="0,30,0,0"/>
+        <CollectionView x:Name="ScheduledFlights" Grid.Row="1" Margin="0,5,0,0">
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+                    <Frame Padding="20,15,15,15" Margin="5,5,5,15" BorderColor="LightGray" CornerRadius="8" HasShadow="True">
+
+                        <VerticalStackLayout>
+                            <HorizontalStackLayout>
+                                <Frame Padding="8,5,8,-10" Margin="0,2,0,15" BackgroundColor="DodgerBlue" CornerRadius="8" HorizontalOptions="Center">
+                                    <Label Text="{Binding FlightNumber}"
+                                       FontAttributes="Bold"
+                                       FontSize="Medium"
+                                       TextColor="White" Margin="0,0,0,15"/>
+                                </Frame>
+                            </HorizontalStackLayout>
+                            <HorizontalStackLayout Spacing="5">
+                                <Image Source="{Binding OriginFlagImageUrl}" WidthRequest="20" HeightRequest="20" Aspect="AspectFit" />
+                                <Label Text="{Binding OriginCity, StringFormat='{0},'}" FontSize="Small" />
+                                <Label Text="{Binding OriginCountry}" FontSize="Small" />
+                            </HorizontalStackLayout>
+                            <Label FontFamily="FontAwesome" Text="{x:Static models:FontAwesomeIcons.CaretDown}" TextColor="DodgerBlue" HorizontalOptions="Start" Margin="5, -2, 0, -2"/>
+                            <HorizontalStackLayout Spacing="5" Margin="0,0,0,10">
+                                <Image Source="{Binding DestinationFlagImageUrl}" WidthRequest="20" HeightRequest="20" Aspect="AspectFit" />
+                                <Label Text="{Binding DestinationCity, StringFormat='{0},'}" FontSize="Small" />
+                                <Label Text="{Binding DestinationCountry}" FontSize="Small" />
+                            </HorizontalStackLayout>
+                            <HorizontalStackLayout Margin="0,0,0,11">
+                                <Label 
+                                    FontFamily="FontAwesome" 
+                                    Text="{x:Static models:FontAwesomeIcons.PlaneDeparture}" 
+                                    TextColor="DodgerBlue" Margin="0,2,9,0"/>
+                                <Label 
+                                    Text="{Binding Departure, StringFormat='{0:dddd, MMMM dd, yyyy, HH:mm}'}" 
+                                    FontSize="Small" />
+                            </HorizontalStackLayout>
+                            <HorizontalStackLayout Margin="0,0,0,11">
+                                <Label 
+                                    FontFamily="FontAwesome" 
+                                    Text="{x:Static models:FontAwesomeIcons.PlaneArrival}" 
+                                    TextColor="DodgerBlue" Margin="0,2,9,0"/>
+                                <Label 
+                                    Text="{Binding Arrival, StringFormat='{0:dddd, MMMM dd, yyyy, HH:mm}'}" 
+                                    FontSize="Small" />
+                            </HorizontalStackLayout>
+                            <HorizontalStackLayout Margin="0,0,0,11">
+                                <Label 
+                                    FontFamily="FontAwesome" 
+                                    Text="{x:Static models:FontAwesomeIcons.ClockRotateLeft}" 
+                                    TextColor="DodgerBlue" Margin="0,2,9,0"/>
+                                <Label 
+                                    Text="{Binding Boarding, StringFormat='Boarding: {0:HH:mm}'}" 
+                                    FontSize="Small" />
+                            </HorizontalStackLayout>
+                            <HorizontalStackLayout Margin="0,0,0,11">
+                                <Label 
+                                    FontFamily="FontAwesome" 
+                                    Text="{x:Static models:FontAwesomeIcons.IdCard}" 
+                                    TextColor="DodgerBlue" Margin="0,2,9,0"/>
+                                <Label 
+                                    Text="{Binding HolderIdNumber}" 
+                                    FontSize="Small" />
+                            </HorizontalStackLayout>
+                            <HorizontalStackLayout Margin="0,0,0,11">
+                                <Label 
+                                    Text="💺" 
+                                    TextColor="DodgerBlue" Margin="0,1,9,0"/>
+                                <Label 
+                                    Text="{Binding Seat}" 
+                                    FontSize="Small" />
+                            </HorizontalStackLayout>
+                            <HorizontalStackLayout Margin="0,0,0,11">
+                                <Label 
+                                    FontFamily="FontAwesome" 
+                                    Text="{x:Static models:FontAwesomeIcons.MoneyBill}" 
+                                    TextColor="DodgerBlue" Margin="0,2,9,0"/>
+                                <Label 
+                                    Text="{Binding TicketPrice, StringFormat='{0:C2}'}" 
+                                    FontSize="Small" />
+                            </HorizontalStackLayout>
+                            <HorizontalStackLayout>
+                                <Label 
+                                    FontFamily="FontAwesome" 
+                                    Text="{x:Static models:FontAwesomeIcons.Info}" 
+                                    TextColor="DodgerBlue" Margin="4,1,9,0"/>
+                                <Label 
+                                    Text="{Binding ScheduledStatus}" 
+                                    FontSize="Small" Margin="6,0,0,0"/>
+                            </HorizontalStackLayout>
+                        </VerticalStackLayout>
+                    </Frame>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+
+        <!-- Centered Activity Indicator -->
+        <ActivityIndicator IsRunning="False" 
+                               x:Name="LoadingSpinner"
+                               Color="DodgerBlue"
+                               WidthRequest="90"
+                               HeightRequest="90"
+                               Opacity="0.5"
+                               Margin="0,0,0,0"/>
+    </Grid>
+</ContentPage>

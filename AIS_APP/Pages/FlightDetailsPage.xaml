@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="AIS_APP.Pages.FlightDetailsPage"
+             Title="{Binding Title}"
+             xmlns:models="clr-namespace:AIS_APP.Models"
+             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+             xmlns:sys="clr-namespace:System;assembly=netstandard"
+             BackgroundColor="AliceBlue">
+
+    <ScrollView>
+        <VerticalStackLayout Padding="20" Spacing="20">
+            <!-- Flight Information Section -->
+            <VerticalStackLayout Spacing="15">
+
+                <!-- Origin Section with Flag -->
+                <Frame Padding="20,15,0,6" BorderColor="LightGray" CornerRadius="10" HasShadow="True">
+                    <HorizontalStackLayout Spacing="10" VerticalOptions="Center">
+                        <Image Source="{Binding OriginFlagImageUrl}"
+                               WidthRequest="50"
+                               HeightRequest="50"
+                               Aspect="AspectFit" 
+                               Margin="0,-10,5,0"/>
+                        <Label Text="{Binding Origin}" FontSize="20" FontAttributes="Bold" LineBreakMode="WordWrap" WidthRequest="240"/>
+                    </HorizontalStackLayout>
+                </Frame>
+
+                <Label FontFamily="FontAwesome" Text="{x:Static models:FontAwesomeIcons.PlaneUp}" FontSize="25" TextColor="DodgerBlue" HorizontalOptions="Center" Margin="0, -5, 0, -5" Rotation="180"/>
+
+                <!-- Destination Section with Flag -->
+                <Frame Padding="20,15,0,6" BorderColor="LightGray" CornerRadius="10" HasShadow="True">
+                    <HorizontalStackLayout Spacing="10" VerticalOptions="Center">
+                        <Image Source="{Binding DestinationFlagImageUrl}"
+                               WidthRequest="50"
+                               HeightRequest="50"
+                               Aspect="AspectFit" 
+                               Margin="0,-10,5,0"/>
+                        <Label Text="{Binding Destination}" FontSize="20" FontAttributes="Bold" LineBreakMode="WordWrap" WidthRequest="240"/>
+                    </HorizontalStackLayout>
+                </Frame>
+
+                <!-- Departure and Arrival Dates within a Frame -->
+                <Frame Padding="15" BorderColor="LightGray" CornerRadius="10" HasShadow="True">
+                    <VerticalStackLayout Spacing="10">
+                        <!-- Departure Date and Time -->
+                        <HorizontalStackLayout Spacing="10" VerticalOptions="Center">
+                            <Label FontFamily="FontAwesome"
+                                   Text="{x:Static models:FontAwesomeIcons.PlaneDeparture}"
+                                   TextColor="DodgerBlue"
+                                   FontSize="18"
+                                   VerticalOptions="Center"/>
+                            <Label Text="{Binding Departure, StringFormat='{0:dddd, MMMM dd, yyyy, HH:mm}'}"
+                                   FontSize="16"
+                                   TextColor="Gray"/>
+                        </HorizontalStackLayout>
+
+                        <!-- Arrival Date and Time -->
+                        <HorizontalStackLayout Spacing="10" VerticalOptions="Center">
+                            <Label FontFamily="FontAwesome"
+                                   Text="{x:Static models:FontAwesomeIcons.PlaneArrival}"
+                                   TextColor="DodgerBlue"
+                                   FontSize="18"
+                                   VerticalOptions="Center"/>
+                            <Label Text="{Binding Arrival, StringFormat='{0:dddd, MMMM dd, yyyy, HH:mm}'}"
+                                   FontSize="16"
+                                   TextColor="Gray"/>
+                        </HorizontalStackLayout>
+
+                        <!-- Boarding -->
+                        <HorizontalStackLayout Spacing="10" VerticalOptions="Center">
+                            <Label FontFamily="FontAwesome"
+                                   Text="{x:Static models:FontAwesomeIcons.ClockRotateLeft}"
+                                   TextColor="DodgerBlue"
+                                   FontSize="18"
+                                   VerticalOptions="Center" Margin="2,0,0,0"/>
+                            <Label Text="{Binding Boarding, StringFormat='Boarding: {0:HH:mm}'}"
+                                   FontSize="16"
+                                   TextColor="Gray" Margin="3,0,0,0"/>
+                        </HorizontalStackLayout>
+
+                        <!-- Duration -->
+                        <HorizontalStackLayout Spacing="10" VerticalOptions="Center">
+                            <Label FontFamily="FontAwesome"
+                                   Text="{x:Static models:FontAwesomeIcons.Clock}"
+                                   TextColor="DodgerBlue"
+                                   FontSize="18"
+                                   VerticalOptions="Center" Margin="2,0,0,0"/>
+                            <Label Text="{Binding DurationFormatted, StringFormat='Duration: {0}'}"
+                                   FontSize="16"
+                                   TextColor="Gray" Margin="3,0,0,0"/>
+                        </HorizontalStackLayout>
+                    </VerticalStackLayout>
+                </Frame>
+
+            </VerticalStackLayout>
+
+            <!-- Additional Information Section -->
+            <Frame Padding="15" BorderColor="LightGray" CornerRadius="10" Margin="0,-5,0,0" HasShadow="True">
+                <VerticalStackLayout Spacing="10">
+                    <!-- Flight Capacity -->
+                    <HorizontalStackLayout Spacing="10">
+                        <Label FontFamily="FontAwesome"
+                               Text="{x:Static models:FontAwesomeIcons.Square}"
+                               TextColor="DodgerBlue"
+                               FontSize="18"
+                               VerticalOptions="Center"/>
+                        <Label Text="Flight Capacity:" FontAttributes="Bold" FontSize="16" />
+                        <Label Text="{Binding FlightCapacity}" FontSize="16" TextColor="Gray"/>
+                    </HorizontalStackLayout>
+
+                    <!-- Seats Taken -->
+                    <HorizontalStackLayout Spacing="10">
+                        <Label FontFamily="FontAwesome"
+                               Text="{x:Static models:FontAwesomeIcons.Square}"
+                               TextColor="MediumSpringGreen"
+                               FontSize="18"
+                               VerticalOptions="Center"/>
+                        <Label Text="Available Seats:" FontAttributes="Bold" FontSize="16" />
+                        <Label Text="{Binding AvailableSeatsCount}" FontSize="16" TextColor="Gray"/>
+                    </HorizontalStackLayout>
+
+                    <!-- Seats Taken -->
+                    <HorizontalStackLayout Spacing="10">
+                        <Label FontFamily="FontAwesome"
+                               Text="{x:Static models:FontAwesomeIcons.Square}"
+                               TextColor="Red"
+                               FontSize="18"
+                               VerticalOptions="Center"/>
+                        <Label Text="Occupied Seats:" FontAttributes="Bold" FontSize="16" />
+                        <Label Text="{Binding SeatsTaken}" FontSize="16" TextColor="Gray"/>
+                    </HorizontalStackLayout>
+                </VerticalStackLayout>
+            </Frame>
+
+            <Button Text="Purchase Ticket" Background="DodgerBlue" x:Name="PurchaseTicket" FontSize="20" Clicked="PurchaseTicket_Clicked"/>
+
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>

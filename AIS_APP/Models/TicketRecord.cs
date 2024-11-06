@@ -38,5 +38,11 @@ namespace AIS_APP.Models
         public DateTime Arrival { get; set; }
 
         public bool Canceled { get; set; }
+
+        public string Status => Canceled ? "Canceled" : "Completed";
+
+        public string ScheduledStatus => Canceled ? "Canceled" : "Scheduled";
+
+        public DateTime Boarding => Departure.AddMinutes(-30);
     }
 }

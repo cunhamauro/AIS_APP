@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="AIS_APP.Pages.ProfilePage"
+             Title="Profile"
+             BackgroundColor="AliceBlue"
+              xmlns:models="clr-namespace:AIS_APP.Models"
+                xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+                xmlns:sys="clr-namespace:System;assembly=netstandard">
+
+    <!-- ToolbarItems for adding buttons on the right -->
+    <ContentPage.ToolbarItems>
+        <ToolbarItem 
+                     IconImageSource="logout.png"
+                     Order="Primary"
+            x:Name="Logout"
+            Clicked="Logout_Clicked"/>
+    </ContentPage.ToolbarItems>
+
+    <Grid RowDefinitions="Auto,*" RowSpacing="0" Padding="20">
+
+        <VerticalStackLayout Grid.Row="0"
+                         VerticalOptions="Start"
+                         Spacing="1"
+                         Padding="20">
+
+            <Grid HorizontalOptions="Center"
+      VerticalOptions="Center">
+
+                <!-- Profile Image Frame -->
+                <Frame Margin="0,-23,0,0"
+           WidthRequest="160"
+           HeightRequest="160"
+           CornerRadius="10" 
+           BackgroundColor="Transparent"
+           HasShadow="True"
+           Padding="0">
+
+                    <ImageButton Source="defaultprofile.png"
+                     CornerRadius="125"
+                     Aspect="AspectFill"
+                     x:Name="ProfileImage"
+                     Clicked="ProfileImage_Clicked"/>
+                </Frame>
+
+                <!-- Icon in the Top-Right Corner -->
+                <Label FontFamily="FontAwesome"
+           Text="{x:Static models:FontAwesomeIcons.Pen}"
+           TextColor="Gray"
+                       Opacity="0.5"
+           FontSize="20"
+           Margin="0, -20, -30, 0"
+           HorizontalOptions="End"
+            VerticalOptions="Start"/>
+            </Grid>
+
+            <Frame
+               Padding="15,8,15,10" Margin="0,15,0,-22"
+               BackgroundColor="White" HasShadow="True">
+
+                <HorizontalStackLayout HorizontalOptions="Center">
+                    <Label x:Name="LblEmail" Margin="0,0,0,0"
+               HorizontalOptions="Center" FontSize="18" FontAttributes="Bold"
+               TextColor="DodgerBlue" />
+                </HorizontalStackLayout>
+
+            </Frame>
+
+        </VerticalStackLayout>
+        <VerticalStackLayout Grid.Row="1"
+                         Margin="20"
+                         Spacing="20">
+
+            <Frame Grid.Row="2"
+               Padding="15,0,15,5"
+               BackgroundColor="White" HasShadow="True">
+
+                <VerticalStackLayout>
+
+                    <HorizontalStackLayout>
+                        <Label 
+                        Text="First name: " 
+                        TextColor="Gray" Margin="0,12,9,0" FontSize="16"/>
+                        <Entry Placeholder="First name" WidthRequest="250" FontSize="16"
+                            x:Name="EntFirstName"/>
+                        </HorizontalStackLayout>
+
+                    <HorizontalStackLayout>
+                        <Label 
+                        Text="Last name: " 
+                        TextColor="Gray" Margin="0,12,9,0" FontSize="16"/>
+                        <Entry Placeholder="Last name" WidthRequest="280" FontSize="16"
+                            x:Name="EntLastName"/>
+                    </HorizontalStackLayout>
+
+                    <HorizontalStackLayout>
+                        <Label 
+                        Text="Phone no.:"
+                        TextColor="Gray" Margin="0,12,12,0" FontSize="16"/>
+                        <Entry Placeholder="Phone number" Keyboard="Telephone" WidthRequest="252" FontSize="16"
+                            x:Name="EntPhoneNumber"/>
+                    </HorizontalStackLayout>
+
+                </VerticalStackLayout>
+
+            </Frame>
+
+            <Button Text="Update" BackgroundColor="DodgerBlue" x:Name="UpdateUser" FontSize="20"  Clicked="UpdateUser_Clicked"/>
+
+            <Button Text="Change Password" BackgroundColor="DodgerBlue" x:Name="UpdatePassword" FontSize="20"  Clicked="UpdatePassword_Clicked"/>
+
+
+        </VerticalStackLayout>
+
+        <!-- Centered Activity Indicator -->
+        <ActivityIndicator IsRunning="False" 
+                               x:Name="LoadingSpinner"
+                               Color="DodgerBlue"
+                               WidthRequest="90"
+                               HeightRequest="90"
+                               Opacity="0.5"
+                               Margin="0,0,0,-965"/>
+
+    </Grid>
+</ContentPage>

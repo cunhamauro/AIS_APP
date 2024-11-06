@@ -1,12 +1,12 @@
 ﻿namespace AIS_APP.Helpers
 {
-    public class TicketPriceGenerator
+    static public class TicketPriceGenerator
     {
         /// <summary>
         /// Generate a price for the flight tickets
         /// </summary>
         /// <returns>Ticker price</returns>
-        public decimal GetTicketPrice(TimeSpan duration, int availableSeats, int aircraftCapacity)
+        static public decimal GetTicketPrice(TimeSpan duration, int availableSeats, int aircraftCapacity)
         {
             // Algorithm to generate a price based on the duration of the flight and seat rarity (Not applicable for real use, but for illustrating distinct pricing scenarios)
             int totalMinutes = (int)duration.TotalMinutes;

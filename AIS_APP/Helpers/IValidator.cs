@@ -18,6 +18,6 @@ namespace AIS_APP.Helpers
 
         string PasswordError { get; set; }
 
-        Task<bool> Validate(string firstName, string lastName, string email, string phonenumber, string password);
+        Task<bool> Validate(string firstName, string lastName, string email, string phonenumber, string password, string confirmPassword);
     }
 }

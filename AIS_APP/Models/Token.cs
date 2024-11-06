@@ -12,7 +12,7 @@ namespace AIS_APP.Models
 
         public string? TokenType { get; set; }
 
-        public int? UserId { get; set; }
+        public string? UserId { get; set; }
 
         public string? UserEmail { get; set; }
     }

@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="AIS_APP.Pages.PurchaseTicketPage"
+             Title="Purchase Ticket"
+             xmlns:models="clr-namespace:AIS_APP.Models"
+            xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+            xmlns:sys="clr-namespace:System;assembly=netstandard"
+             BackgroundColor="AliceBlue">
+
+    <Grid>
+        <VerticalStackLayout Padding="20" Spacing="20">
+
+            <Frame Padding="20,15,15,15" BorderColor="LightGray" CornerRadius="10" HasShadow="True">
+                <VerticalStackLayout>
+                    <!-- Flight number -->
+                    <HorizontalStackLayout>
+                        <Frame Padding="8,5,8,-10" Margin="0,2,0,15" BackgroundColor="DodgerBlue" CornerRadius="8" HorizontalOptions="Center">
+                            <Label  Text="{Binding FlightNumber}"
+                                       FontAttributes="Bold"
+                                       FontSize="Medium"
+                                       TextColor="White" Margin="0,0,0,15"/>
+                        </Frame>
+                    </HorizontalStackLayout>
+                    <!-- Origin section with flag image -->
+                    <HorizontalStackLayout Spacing="5">
+                        <Image Source="{Binding OriginFlagImageUrl}"
+                               WidthRequest="20"
+                               HeightRequest="20"
+                               Aspect="AspectFit" />
+                        <Label Text="{Binding OriginCity, StringFormat='{0},'}" FontSize="Small" />
+                        <Label Text="{Binding OriginCountry}" FontSize="Small" />
+                    </HorizontalStackLayout>
+
+                    <Label FontFamily="FontAwesome" Text="{x:Static models:FontAwesomeIcons.CaretDown}" TextColor="DodgerBlue" HorizontalOptions="Start" Margin="5, -2, 0, -2"/>
+
+                    <!-- Destination section with flag image -->
+                    <HorizontalStackLayout Spacing="5" Margin="0,0,0,10">
+                        <Image Source="{Binding DestinationFlagImageUrl}"
+                               WidthRequest="20"
+                               HeightRequest="20"
+                               Aspect="AspectFit" />
+                        <Label Text="{Binding DestinationCity, StringFormat='{0},'}" FontSize="Small" />
+                        <Label Text="{Binding DestinationCountry}" FontSize="Small" />
+                    </HorizontalStackLayout>
+
+                    <!-- Departure and Arrival date & time -->
+                    <HorizontalStackLayout Margin="0,0,0,11">
+                        <Label 
+                            FontFamily="FontAwesome" 
+                            Text="{x:Static models:FontAwesomeIcons.PlaneDeparture}" 
+                            TextColor="DodgerBlue" Margin="0,2,9,0"/>
+                        <Label 
+                            Text="{Binding Departure, StringFormat='{0:dddd, MMMM dd, yyyy, HH:mm}'}" 
+                            FontSize="Small" />
+                    </HorizontalStackLayout>
+                    <HorizontalStackLayout>
+                        <Label 
+                            FontFamily="FontAwesome" 
+                            Text="{x:Static models:FontAwesomeIcons.PlaneArrival}" 
+                            TextColor="DodgerBlue" Margin="0,2,9,0"/>
+                        <Label 
+                            Text="{Binding Arrival, StringFormat='{0:dddd, MMMM dd, yyyy, HH:mm}'}" 
+                            FontSize="Small" />
+                    </HorizontalStackLayout>
+                </VerticalStackLayout>
+            </Frame>
+
+            <Frame Padding="15,0,15,0" BackgroundColor="White" CornerRadius="10" HorizontalOptions="Center" HasShadow="True">
+                
+
+                <!-- Picker for Selecting a Seat -->
+                <Picker Title="Select a Seat"
+                        x:Name="SelectSeat"
+                        ItemsSource="{Binding AvailableSeats}"
+                        FontSize="16"
+                        HorizontalOptions="StartAndExpand" TextColor="DodgerBlue" FontAttributes="Bold" HorizontalTextAlignment="Center"/>
+            </Frame>
+
+            <Label Text="Ticket Holder Information" FontAttributes="Bold" TextColor="Gray"
+                   HorizontalOptions="Center" Margin="0,-5,0,-18" FontSize="15"/>
+
+            <Frame Padding="15" BackgroundColor="White" HasShadow="True">
+                <VerticalStackLayout>
+                    <HorizontalStackLayout>
+                        <!-- Picker with options directly in XAML -->
+                        <Picker Title="Title"
+                                x:Name="SelectTitle"
+                                FontSize="16"
+                                TextColor="Gray"
+                                FontAttributes="Bold"
+                                HorizontalOptions="StartAndExpand">
+                            <!-- Add items here -->
+                            <Picker.Items>
+                                <x:String>Mr</x:String>
+                                <x:String>Ms</x:String>
+                                <x:String>Dr</x:String>
+                                <x:String>Prof</x:String>
+                            </Picker.Items>
+                        </Picker>
+
+                        <!-- Entry for Full Name -->
+                        <Entry Placeholder="Full Name"
+                               Keyboard="Text"
+                               x:Name="EntFullName"
+                               FontSize="16"
+                               WidthRequest="275"/>
+                    </HorizontalStackLayout>
+
+                    <Entry Placeholder="Identification Number"
+                           Keyboard="Text"
+                           x:Name="EntIdNumber" FontSize="16"/>
+
+                    <Entry Placeholder="Phone Number"
+                           Keyboard="Telephone"
+                           x:Name="EntPhoneNumber" FontSize="16"/>
+
+                    <Entry Placeholder="Email to send Ticket"
+                           Keyboard="Email"
+                           x:Name="EntEmail" FontSize="16"/>
+
+                    <HorizontalStackLayout>
+                        <Label Text="Birth Date: "  FontSize="16" TextColor="black" HorizontalOptions="StartAndExpand" Margin="5,13,0,0"/>
+                        <DatePicker x:Name="DateOfBirth" FontSize="16"/>
+                    </HorizontalStackLayout>
+                </VerticalStackLayout>
+            </Frame>
+
+            <Button Text="{Binding CurrentTicketPrice, StringFormat='Pay {0:C2}'}" Background="DodgerBlue" x:Name="PurchaseTicket" FontSize="20" Clicked="PurchaseTicket_Clicked"/>
+        </VerticalStackLayout>
+
+        <!-- Overlay for Activity Indicator -->
+        <AbsoluteLayout IsVisible="False" 
+                        HorizontalOptions="FillAndExpand" 
+                        VerticalOptions="FillAndExpand">
+
+            <!-- Centered Activity Indicator -->
+            <ActivityIndicator IsRunning="False" 
+                               x:Name="LoadingSpinner"
+                               Color="DodgerBlue"
+                               WidthRequest="90"
+                               HeightRequest="90"
+                               Opacity="0.5"
+                               AbsoluteLayout.LayoutFlags="PositionProportional" 
+                               AbsoluteLayout.LayoutBounds="0.5, 0.5, AutoSize, AutoSize"/>
+        </AbsoluteLayout>
+    </Grid>
+</ContentPage>

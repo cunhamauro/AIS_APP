@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="AIS_APP.Pages.LoginPage"
+             Title="Login"
+             BackgroundColor="AliceBlue">
+
+    <Grid RowSpacing="20" Margin="20,40,20,40">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <Image Grid.Row="0"
+               Source="ais.png"
+               Aspect="AspectFit"
+               HeightRequest="100"
+               WidthRequest="100"
+               Margin="0,0,0,30"/>
+
+        <Label Grid.Row="1" Text="Login" FontAttributes="Bold"
+               HorizontalOptions="Center" FontSize="18"/>
+
+        <Frame Grid.Row="2"
+               Padding="15"
+               BackgroundColor="White" HasShadow="True">
+            <VerticalStackLayout>
+                <Entry Placeholder="Email" FontSize="16"
+                       Keyboard="Email"
+                       x:Name="EntEmail"/>
+                <Entry Placeholder="Password" FontSize="16"
+                       IsPassword="True"
+                       x:Name="EntPassword"/>
+            </VerticalStackLayout>
+        </Frame>
+
+        <Button Grid.Row="3"
+                Text="Login"
+                FontSize="20"                 
+                BackgroundColor="DodgerBlue"
+                x:Name="BtnLogin"
+                Clicked="BtnLogin_Clicked"/>
+
+        <HorizontalStackLayout Grid.Row="4"
+                               Spacing="2"
+                               HorizontalOptions="Center"
+                               VerticalOptions="EndAndExpand">
+            <Label Text="Don't have an account?"/>
+            <Label Text="Register here" TextColor="DodgerBlue" FontAttributes="Bold">
+                <Label.GestureRecognizers>
+                    <TapGestureRecognizer x:Name="TapRegister" Tapped="TapRegister_Tapped"/>
+                </Label.GestureRecognizers>
+            </Label>
+        </HorizontalStackLayout>
+
+        <HorizontalStackLayout Grid.Row="5"
+                               Spacing="2"
+                               HorizontalOptions="Center"
+                               VerticalOptions="EndAndExpand">
+            <Label Text="Forgot your password?"/>
+            <Label Text="Click here" TextColor="Gray" FontAttributes="Bold">
+                <Label.GestureRecognizers>
+                    <TapGestureRecognizer x:Name="TapForgotPassword" Tapped="TapForgotPassword_Tapped"/>
+                </Label.GestureRecognizers>
+            </Label>
+        </HorizontalStackLayout>
+
+        <!-- Centered Activity Indicator -->
+        <ActivityIndicator IsRunning="False" 
+                               x:Name="LoadingSpinner"
+                               Color="DodgerBlue"
+                               WidthRequest="90"
+                               HeightRequest="90"
+                               Opacity="0.5"
+                               Margin="0,0,0,-810"/>
+
+    </Grid>
+
+</ContentPage>
