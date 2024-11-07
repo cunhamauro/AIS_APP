@@ -10,8 +10,8 @@ public partial class LoginPage : ContentPage
     private readonly IValidator _validator;
 
     public LoginPage(ApiService apiService, IValidator validator)
-	{
-		InitializeComponent();
+    {
+        InitializeComponent();
         _apiService = apiService;
         _validator = validator;
     }
@@ -48,6 +48,33 @@ public partial class LoginPage : ContentPage
         if (!response.HasError)
         {
             LoadingSpinner.IsRunning = false;
+
+            //var previousPage = Preferences.Get("PreviousPage", string.Empty);
+
+            //if (previousPage == "flightdetails")
+            //{
+            //    var flightIdString = Preferences.Get("FD_FlightId", string.Empty);
+            //    var flightNumber = Preferences.Get("FD_FlightNumber", string.Empty);
+
+            //    if (!string.IsNullOrEmpty(flightIdString) && int.TryParse(flightIdString, out int flightId))
+            //    {
+            //        await Navigation.PopAsync();
+
+            //        var detailsPage = new FlightDetailsPage(flightId, flightNumber, _apiService, _validator);
+
+            //        await Navigation.PushAsync(detailsPage);
+
+            //        Navigation.InsertPageBefore(new HomePage(_apiService, _validator), detailsPage);
+
+
+            //        Preferences.Set("PreviousPage", string.Empty);
+            //        Preferences.Set("FD_FlightId", string.Empty);
+            //        Preferences.Set("FD_FlightNumber", string.Empty);
+
+            //        return;
+            //    }
+            //}
+
             Application.Current!.MainPage = new AppShell(_apiService, _validator);
         }
         else
@@ -68,4 +95,14 @@ public partial class LoginPage : ContentPage
     {
         await Navigation.PushAsync(new ForgotPasswordPage(_apiService, _validator));
     }
+
+    //private async void BtnFlights_Clicked(object sender, EventArgs e)
+    //{
+    //    // When going to the home page through the login page go through routing to not add a page to navigation
+    //    // So the Home tab is selected correctly and doesnt stay in Home with Login selected
+    //    await Shell.Current.GoToAsync("//home");
+
+    //    // Clear the navigation stack to not have arrows to go back after going to Home from Login
+    //    await Shell.Current.Navigation.PopToRootAsync();
+    //}
 }

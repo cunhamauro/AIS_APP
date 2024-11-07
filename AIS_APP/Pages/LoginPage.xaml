@@ -11,6 +11,7 @@
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
@@ -45,7 +46,14 @@
                 x:Name="BtnLogin"
                 Clicked="BtnLogin_Clicked"/>
 
-        <HorizontalStackLayout Grid.Row="4"
+        <!--<Button Grid.Row="4"
+                Text="Flights"
+                FontSize="20"                 
+                BackgroundColor="DodgerBlue"
+                x:Name="BtnFlights"
+                Clicked="BtnFlights_Clicked"/>-->
+
+        <HorizontalStackLayout Grid.Row="5"
                                Spacing="2"
                                HorizontalOptions="Center"
                                VerticalOptions="EndAndExpand">
@@ -57,7 +65,7 @@
             </Label>
         </HorizontalStackLayout>
 
-        <HorizontalStackLayout Grid.Row="5"
+        <HorizontalStackLayout Grid.Row="6"
                                Spacing="2"
                                HorizontalOptions="Center"
                                VerticalOptions="EndAndExpand">

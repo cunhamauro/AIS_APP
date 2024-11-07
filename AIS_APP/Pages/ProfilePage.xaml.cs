@@ -215,10 +215,16 @@ public partial class ProfilePage : ContentPage
         ProfileImage.IsEnabled = true;
     }
 
-    private void Logout_Clicked(object sender, EventArgs e)
+    private async void Logout_Clicked(object sender, EventArgs e)
     {
+        // Clear the access token to log the user out
         Preferences.Set("accesstoken", string.Empty);
-        Application.Current!.MainPage = new NavigationPage(new LoginPage(_apiService, _validator));
+
+        // Set the MainPage back to the Shell with the necessary pages, such as Login
+        Application.Current!.MainPage = new AppShell(_apiService, _validator);
+
+        // After setting the MainPage to the Shell, navigate to the Login page
+        await Shell.Current.GoToAsync("//login");
     }
 
     private async void UpdatePassword_Clicked(object sender, EventArgs e)

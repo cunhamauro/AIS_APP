@@ -66,15 +66,24 @@
                 </VerticalStackLayout>
             </Frame>
 
-            <Frame Padding="15,0,15,0" BackgroundColor="White" CornerRadius="10" HorizontalOptions="Center" HasShadow="True">
                 
+                <Frame Padding="12,0,15,0" BackgroundColor="White" CornerRadius="10" HorizontalOptions="Center" HasShadow="True">
 
-                <!-- Picker for Selecting a Seat -->
-                <Picker Title="Select a Seat"
+                <HorizontalStackLayout HorizontalOptions="Center">
+
+                    <Label FontSize="25"
+                                    Text="💺" 
+                                    TextColor="DodgerBlue" Margin="-5,5,2,0"/>
+
+                    <!-- Picker for Selecting a Seat -->
+                    <Picker Title="Select a Seat"
                         x:Name="SelectSeat"
                         ItemsSource="{Binding AvailableSeats}"
                         FontSize="16"
                         HorizontalOptions="StartAndExpand" TextColor="DodgerBlue" FontAttributes="Bold" HorizontalTextAlignment="Center"/>
+
+                </HorizontalStackLayout>
+
             </Frame>
 
             <Label Text="Ticket Holder Information" FontAttributes="Bold" TextColor="Gray"
